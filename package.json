@@ -1,6 +1,6 @@
 {
   "name": "express-ntlm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An express middleware to have basic NTLM-authentication.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "ntlm"
   ],
   "author": "Fabio Poloni \"fabio@APP-roved.com\" (http://APP-roved.com)",
-  "license": "ISC",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/einfallstoll/express-ntlm/issues"
   },
