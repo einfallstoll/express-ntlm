@@ -9,7 +9,7 @@ an express middleware to have basic NTLM-authentication in node.js.
 ## usage
 
     var app = require('express')()
-    , ntlm = require('ntlm')()
+    , ntlm = require('express-ntlm')()
     
     app.listen(80)
     
