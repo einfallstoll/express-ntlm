@@ -13,10 +13,10 @@ an express middleware to have basic NTLM-authentication in node.js.
     
     app.listen(80)
     
-    app.all('/', ntml())
+    app.all('/', ntlm())
     
     app.get('/', function(request, response) {
-        console.log(request.ntml) // { target: 'MYDOMAIN', userid: 'MYUSERID', workstation: 'MYWORKSTATION' }
+        console.log(request.ntlm) // { target: 'MYDOMAIN', userid: 'MYUSERID', workstation: 'MYWORKSTATION' }
     })
     
 ### notes
