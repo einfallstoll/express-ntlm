@@ -8,16 +8,17 @@ an express middleware to have basic NTLM-authentication in node.js.
 
 ## usage
 
-    var app = require('express')()
-    , ntlm = require('express-ntlm')()
+    var express = require('express');
+    var app = express();
+    var ntlm = require('express-ntlm');
     
-    app.listen(80)
-    
-    app.all('/', ntlm())
+    app.all('/', ntlm());
     
     app.get('/', function(request, response) {
-        console.log(request.ntlm) // { target: 'MYDOMAIN', userid: 'MYUSERID', workstation: 'MYWORKSTATION' }
-    })
+        response.send(request.ntlm); // { target: 'MYDOMAIN', userid: 'MYUSERID', workstation: 'MYWORKSTATION' }
+    });
+    
+    app.listen(3000);
     
 ### notes
 
