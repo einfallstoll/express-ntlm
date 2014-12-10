@@ -12,7 +12,7 @@ an express middleware to have basic NTLM-authentication in node.js.
     var app = express();
     var ntlm = require('express-ntlm');
     
-    app.all('/', ntlm());
+    app.all('*', ntlm()); // authenticate for all paths
     
     app.get('/', function(request, response) {
         response.send(request.ntlm); // { target: 'MYDOMAIN', userid: 'MYUSERID', workstation: 'MYWORKSTATION' }
