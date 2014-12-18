@@ -1,7 +1,7 @@
 {
   "name": "express-ntlm",
-  "version": "1.0.2",
-  "description": "An express middleware to have basic NTLM-authentication.",
+  "version": "2.0.0",
+  "description": "An express middleware to have simple NTLM-authentication.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/einfallstoll/express-ntlm/issues"
   },
-  "homepage": "https://github.com/einfallstoll/express-ntlm"
+  "homepage": "https://github.com/einfallstoll/express-ntlm",
+  "devDependencies": {
+    "express": "^4.10.4",
+    "express-session": "^1.9.2"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "underscore": "^1.7.0"
+  }
 }
