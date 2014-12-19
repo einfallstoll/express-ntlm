@@ -12,7 +12,9 @@
   },
   "keywords": [
     "express",
-    "ntlm"
+    "ntlm",
+    "ldap",
+    "authentication"
   ],
   "author": "Fabio Poloni \"fabio@APP-roved.com\" (http://APP-roved.com)",
   "license": "BSD-2-Clause",
