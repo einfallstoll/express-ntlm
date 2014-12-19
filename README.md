@@ -2,7 +2,7 @@
 
 An express middleware to have basic NTLM-authentication in node.js.
 
-> **Upgrading from 1.0:** The fields for username, domain and workstation have different names now: `UserName`, `DomainName`, `Workstartion`.
+> **Upgrading from 1.0:** The fields for username, domain and workstation have different names now: `UserName`, `DomainName`, `Workstation`.
 
 *Active Directory support is heavily inspired by [PyAuthenNTLM2](https://github.com/Legrandin/PyAuthenNTLM2/).*
 
