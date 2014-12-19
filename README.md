@@ -2,7 +2,7 @@
 
 An express middleware to have basic NTLM-authentication in node.js.
 
-> **Upgrading from 1.0:** As of v2.0.0 `express-ntlm` requires [`express-session`](https://github.com/expressjs/session). Also the fields for username, domain and workstation have different names now.
+> **Upgrading from 1.0:** The fields for username, domain and workstation have different names now: `UserName`, `DomainName`, `Workstartion`.
 
 *Active Directory support is heavily inspired by [PyAuthenNTLM2](https://github.com/Legrandin/PyAuthenNTLM2/).*
 
@@ -40,6 +40,12 @@ An express middleware to have basic NTLM-authentication in node.js.
 
     app.listen(80);
 
+### without validation
+
+It's not recommended, but it's possible to add NTLM-Authentication without validation. This means you can authenticate without providing valid credentials.
+
+    app.use(ntlm());
+
 ## options
 
 | Name | type | default | description |
@@ -50,7 +56,7 @@ An express middleware to have basic NTLM-authentication in node.js.
 | `prefix` | `string` | `[express-ntlm]` | The prefix is the first argument passed to the `debug`-function. |
 | `debug` | `function` | `function() {}` | Function to log the debug messages. See [logging](#logging) for more details. |
 | `domain` | `string` | `undefined` | Default domain if the DomainName-field cannot be parsed. |
-| `domaincontroller` | `null` / `string` / `array` | `null` | One or more domaincontroller(s) to handle the authentication. If `null` is specified the user is not validated. |
+| `domaincontroller` | `null` / `string` / `array` | `null` | One or more domaincontroller(s) to handle the authentication. If `null` is specified the user is not validated. Active Directory is supported. |
 
 <a name="logging" />
 ## logging (examples)
@@ -62,7 +68,7 @@ An express middleware to have basic NTLM-authentication in node.js.
         console.log.apply(null, args);
     }
     
-### logging to [debug](https://github.com/visionmedia/debug)
+### logging to [debug](https://github.com/visionmedia/debug) (or similiar logging-utilities)
 
     function() {
         var args = Array.prototype.slice.apply(arguments);
@@ -71,4 +77,4 @@ An express middleware to have basic NTLM-authentication in node.js.
 
 ### notes
 
-ntlm is also available within `response.locals` which means you can access it through your template engine (e.g. jade or ejs) using `ntlm`.
+All NTLM-fields (`UserName`, `DomainName`, `Workstartion`) are also available within `response.locals.ntlm`, which means you can access it through your template engine (e.g. jade or ejs) when rendering using `ntlm` (e.g. `<%= ntlm.UserName %>`).
