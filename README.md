@@ -13,17 +13,9 @@ An express middleware to have basic NTLM-authentication in node.js.
 ## example usage
 
     var express = require('express'),
-        ntlm = require('./lib/express-ntlm'),
-        session = require('express-session');
+        ntlm = require('express-ntlm');
 
     var app = express();
-
-    // express-ntlm requires a session to store its connection
-    app.use(session({
-        secret: 'ntlm-secret',
-        resave: true,
-        saveUninitialized: true
-    }));
 
     app.use(ntlm({
         debug: function() {
