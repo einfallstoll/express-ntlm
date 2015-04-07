@@ -1,6 +1,6 @@
 {
   "name": "express-ntlm",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "An express middleware to have simple NTLM-authentication.",
   "main": "index.js",
   "scripts": {
