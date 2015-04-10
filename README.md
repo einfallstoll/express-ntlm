@@ -43,7 +43,7 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 | Name | type | default | description |
 |------|------|---------|-------------|
 | `badrequest` | `function` | `function(request, response, next) { response.sendStatus(400); }` | Function to handle HTTP 400 Bad Request. |
-| `internalservererror` | `function` | `function(request, response, next) { response.sendStatus(500); }` | Function to handle 500 Internal Server Error. |
+| `internalservererror` | `function` | `function(request, response, next) { response.sendStatus(500); }` | Function to handle HTTP 500 Internal Server Error. |
 | `forbidden` | `function` | `function(request, response, next) { response.sendStatus(403); }` | Function to handle HTTP 403 Forbidden. |
 | `prefix` | `string` | `[express-ntlm]` | The prefix is the first argument passed to the `debug`-function. |
 | `debug` | `function` | `function() {}` | Function to log the debug messages. See [logging](#logging) for more details. |
@@ -69,4 +69,4 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 
 ### notes
 
-All NTLM-fields (`UserName`, `DomainName`, `Workstartion`) are also available within `response.locals.ntlm`, which means you can access it through your template engine (e.g. jade or ejs) when rendering using `ntlm` (e.g. `<%= ntlm.UserName %>`).
+All NTLM-fields (`UserName`, `DomainName`, `Workstation`) are also available within `response.locals.ntlm`, which means you can access it through your template engine (e.g. jade or ejs) while rendering (e.g. `<%= ntlm.UserName %>`).
