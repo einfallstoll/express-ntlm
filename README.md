@@ -1,3 +1,5 @@
+[![NPM version](https://img.shields.io/npm/v/express-ntlm.svg?style=flat)](https://www.npmjs.com/package/express-ntlm) [![](http://img.shields.io/gratipay/einfallstoll.svg)](https://gratipay.com/einfallstoll/)
+
 # express-ntlm
 
 An express middleware to have basic NTLM-authentication in node.js.
