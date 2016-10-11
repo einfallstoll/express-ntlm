@@ -8,6 +8,16 @@ An express middleware to have basic NTLM-authentication in node.js.
 
 *Active Directory support is heavily inspired by [PyAuthenNTLM2](https://github.com/Legrandin/PyAuthenNTLM2/).*
 
+## important notes on (reverse) proxies and NTLM
+
+NTLM is designed for corporate networks without a proxy between the client and the application. It does authorise the TCP connection instead of the HTTP session and with a proxy between, it'll authorise the connection between the proxy and the application and therefore mixing up users if the proxy shares the same connection or "forgetting" users if the proxy suddenly uses a different connection for the same user.
+
+In an early state of this module `express-ntlm` tried to create a session during the negotiation, which failed (see [`50d9ac4`](https://github.com/einfallstoll/express-ntlm/commit/50d9ac4a06552ab39d49eadf9efe68f02d122176)) even though [RFC6265](https://tools.ietf.org/html/rfc6265#section-3) makes it clear it MUST be possible: "User agents [...] MUST process Set-Cookie headers contained in other responses (including responses with 400- and 500-level status codes)."
+
+A possible solution to this problem might be to set the `keep-alive` property in nginx as mentioned in an [answer from StackOverflow regarding this issue](http://stackoverflow.com/a/22918442/377369) but it could end in the "multiple-users same-connection"-problem [mentioned from another user](http://stackoverflow.com/a/22806907/377369).
+
+Another option would be to abandon the proxy completely and connect directly to the application on port 80 or build a custom reverse proxy that authenticates the user, creates a session and keeps the session data on a shared store, that is accessible by all applications behind the proxy (e.g. [expressjs/session](https://github.com/expressjs/session) in combination with [visionmedia/connect-redis](http://github.com/visionmedia/connect-redis)).
+
 ## install
 
     $ npm install express-ntlm
@@ -61,7 +71,7 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
         var args = Array.prototype.slice.apply(arguments);
         console.log.apply(null, args);
     }
-    
+
 ### logging to [debug](https://github.com/visionmedia/debug) (or similiar logging-utilities)
 
     function() {
