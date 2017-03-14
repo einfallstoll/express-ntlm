@@ -47,6 +47,37 @@ Another option would be to abandon the proxy completely and connect directly to 
 
     app.listen(80);
 
+
+## example with ldaps
+
+    var express = require('express'),
+        ntlm = require('express-ntlm'),
+        fs = require('fs');
+
+    var app = express();
+
+    app.use(ntlm({
+        debug: function() {
+            var args = Array.prototype.slice.apply(arguments);
+            console.log.apply(null, args);
+        },
+        domain: 'MYDOMAIN',
+        domaincontroller: 'ldaps://myad.example',
+        tlsOptions: {
+            //trusted certificate authorities (can be extracted from the server with openssh)
+            ca: fs.readFileSync('./ca.pem'),
+            //tells the tls module not to check the server's certificate (do not use in production)
+            //rejectUnauthorized: false,
+        }
+    }));
+
+    //same as above
+    app.all('*', function(request, response) {
+        response.end(JSON.stringify(request.ntlm)); // {"DomainName":"MYDOMAIN","UserName":"MYUSER","Workstation":"MYWORKSTATION"}
+    });
+
+    app.listen(80);
+
 ### without validation
 
 It's not recommended, but it's possible to add NTLM-Authentication without validation. This means you can authenticate without providing valid credentials.
@@ -64,6 +95,8 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 | `debug` | `function` | `function() {}` | Function to log the debug messages. See [logging](#logging) for more details. |
 | `domain` | `string` | `undefined` | Default domain if the DomainName-field cannot be parsed. |
 | `domaincontroller` | `null` / `string` / `array` | `null` | One or more domaincontroller(s) to handle the authentication. If `null` is specified the user is not validated. Active Directory is supported. |
+| `tlsOptions` | `object` | `undefined` | An options object that will be passed to [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback) and [tls.createSecureContext](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options). __Only required when using ldaps and the server's certificate is signed by a certificate authority not in Node's default list of CAs.__ (or use [NODE_EXTRA_CA_CERTS](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable)|
+| `tlsOptions.ca` | `string` /  `array` / `Buffer` | `undefined` | Override the trusted CA certificates provided by Node. Refer to [tls.createSecureContext](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options) |
 
 <a name="logging" />
 ## logging (examples)
