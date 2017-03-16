@@ -36,6 +36,9 @@ Another option would be to abandon the proxy completely and connect directly to 
         },
         domain: 'MYDOMAIN',
         domaincontroller: 'ldap://myad.example',
+
+        // use different port (default: 389)
+        // domaincontroller: 'ldap://myad.example:3899',
     }));
 
     app.all('*', function(request, response) {
