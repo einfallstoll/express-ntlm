@@ -1,1 +1,1 @@
-module.exports = require('./lib/express-ntlm.js')
+module.exports = require('./lib/client.js')
