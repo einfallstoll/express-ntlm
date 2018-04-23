@@ -91,6 +91,7 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 | `badrequest` | `function` | `function(request, response, next) { response.sendStatus(400); }` | Function to handle HTTP 400 Bad Request. |
 | `internalservererror` | `function` | `function(request, response, next) { response.sendStatus(500); }` | Function to handle HTTP 500 Internal Server Error. |
 | `forbidden` | `function` | `function(request, response, next) { response.sendStatus(403); }` | Function to handle HTTP 403 Forbidden. |
+| `unauthorized` | `function` | `function(request, response, next) { response.end()  }` | Function to handle HTTP 401 Unauthorized. |
 | `prefix` | `string` | `[express-ntlm]` | The prefix is the first argument passed to the `debug`-function. |
 | `debug` | `function` | `function() {}` | Function to log the debug messages. See [logging](#logging) for more details. |
 | `domain` | `string` | `undefined` | Default domain if the DomainName-field cannot be parsed. |
