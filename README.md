@@ -18,6 +18,8 @@ A possible solution to this problem might be to set the `keep-alive` property in
 
 Another option would be to abandon the proxy completely and connect directly to the application on port 80 or build a custom reverse proxy that authenticates the user, creates a session and keeps the session data on a shared store, that is accessible by all applications behind the proxy (e.g. [expressjs/session](https://github.com/expressjs/session) in combination with [visionmedia/connect-redis](http://github.com/visionmedia/connect-redis)).
 
+This bug was solved by overwriting the connection.id by saving cookies on the client. (see [`06c3864`](https://github.com/Xendox/express-ntlm/commit/06c3864723b1a40dafae894f6b8b5e0a0f459684))
+
 ## install
 
     $ npm install express-ntlm
@@ -92,7 +94,9 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 | `internalservererror` | `function` | `function(request, response, next) { response.sendStatus(500); }` | Function to handle HTTP 500 Internal Server Error. |
 | `forbidden` | `function` | `function(request, response, next) { response.sendStatus(403); }` | Function to handle HTTP 403 Forbidden. |
 | `unauthorized` | `function` | `function(request, response, next) { response.statusCode = 401; response.setHeader('WWW-Authenticate', 'NTLM'); response.end();  }` | Function to handle HTTP 401 Unauthorized. |
+| `generateCookie` | `function` | `function() { return utils.uuidv4(); }` | Function that returns a unique identifier for the connection determining. |
 | `prefix` | `string` | `[express-ntlm]` | The prefix is the first argument passed to the `debug`-function. |
+| `cookieName` | `string` | `XCID` | The name of cookie which will be save on client and its value will be use for identifying connection. |
 | `debug` | `function` | `function() {}` | Function to log the debug messages. See [logging](#logging) for more details. |
 | `domain` | `string` | `undefined` | Default domain if the DomainName-field cannot be parsed. |
 | `domaincontroller` | `null` / `string` / `array` | `null` | One or more domaincontroller(s) to handle the authentication. If `null` is specified the user is not validated. Active Directory is supported. |
