@@ -98,7 +98,10 @@ It's not recommended, but it's possible to add NTLM-Authentication without valid
 | `domaincontroller` | `null` / `string` / `array` | `null` | One or more domaincontroller(s) to handle the authentication. If `null` is specified the user is not validated. Active Directory is supported. |
 | `tlsOptions` | `object` | `undefined` | An options object that will be passed to [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback) and [tls.createSecureContext](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options). __Only required when using ldaps and the server's certificate is signed by a certificate authority not in Node's default list of CAs.__ (or use [NODE_EXTRA_CA_CERTS](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable)|
 | `tlsOptions.ca` | `string` /  `array` / `Buffer` | `undefined` | Override the trusted CA certificates provided by Node. Refer to [tls.createSecureContext](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options) |
-| `getConnectionId` | `function` | `function(request, response) { return utils.uuidv4(); }` | Function to generate custom connection IDs, based optionally on the request and response objects. |
+| `getConnectionId` | `function` | `function(request, response) { return utils.uuidv4(); }` | Function to generate custom connection IDs, based optionally on the request and response objects. Used by the default implementation of `getProxyId` to keep backwards compatibility. *deprecated* |
+| `getProxyId` | `function` | `function(request, response) { if (!request.connection.id) { request.connection.id = options.getConnectionId(request, response); } return request.connection.id; }` | Function to generate custom proxy cache IDs, based optionally on the request and response objects. |
+| `getCachedUserData` | `function` | `function(request, response) { return request.connection.ntlm; }` | Function to return the cached NTLM user data. |
+| `addCachedUserData` | `function` | `function(request, response, userData) { request.connection.ntlm = userData; }` | Function to cache the NTLM user data. |
 
 ## logging (examples)
 <a name="logging" />
